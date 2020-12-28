@@ -9,6 +9,8 @@ Author: Kun Zhou, Qizhao Tang
 ## 1. Introduction
 Coronavirus, also called COVID-19, is a group of related RNA viruses that cause diseases. This virus outbreaked a pandemic. This virus could cause respiratory tract infections that can range from mild to lethal. Mild illnesses in humans include some cases of having trouble breathing, persistent chest pain or pressure, and so on. According to CDC, this virus is deadly to humans. Additionally, COVID-19 is soon widely spread worldwide until WHO declared the outbreak a Public Health Emergency of International Conern on 30 January 2020. In this project, we will be collecting data from https://covidtracking.com. Besides, we will do data visualization to show how this virus spread in United States from April to November. Based on our collected data and prediction models, we will make predictions on death increase, hospitalization increase. 
 
+![png](README_files/covid-19.png)
+
 ## 2. Install Packages
 
 
