@@ -14,7 +14,7 @@ Coronavirus, also called COVID-19, is a group of related RNA viruses that cause 
 ## 2. Install Packages
 
 
-```
+```python
 pip install numpy pandas matplotlib sklearn stats graphviz pydot
 ```
 
@@ -207,7 +207,7 @@ covid_data.head(10)
 
 
 
-```
+```python
 state_covid_data = pd.read_csv("https://api.covidtracking.com/v1/states/daily.csv")
 state_covid_data.drop(["dateChecked", "pending", "posNeg", "total", "lastUpdateEt", "dateModified", "checkTimeEt", "hash", "grade", "score", "positiveScore", "negativeScore", 
                        "negativeRegularScore", "commercialScore", "totalTestEncountersViral", "positiveTestsPeopleAntibody", 
@@ -445,7 +445,7 @@ Firstly, we assume that there is positive relationship between confirmed cases i
 
 
 
-```
+```python
 from scipy import stats
 covid_data = covid_data.iloc[::-1]
 ttest,p_value = stats.ttest_rel(covid_data['positiveIncrease'], covid_data['deathIncrease'])
@@ -462,7 +462,7 @@ Now, in order to do prediction of death increase and hospitalizations increase. 
 ### 4.2 Graph of monthly hospitalization increase
 
 
-```
+```python
 month_hos = dict()
 month = 4
 for i in range(4, 12):
@@ -490,7 +490,7 @@ plt.show()
 ### 4.3 Plot of showing daily hospitalization increase 
 
 
-```
+```python
 month_avg_hos = dict()
 month = 4
 count = 0
@@ -522,7 +522,7 @@ plt.show()
 ### 4.4 Graph of Monthly Death Increase
 
 
-```
+```python
 month_death = dict()
 month = 4
 for i in range(4, 12):
@@ -550,7 +550,7 @@ plt.show()
 ### 4.5 Plot of Daily Death Increase
 
 
-```
+```python
 month_avg_death = dict()
 month = 4
 count = 0
@@ -583,7 +583,7 @@ plt.show()
 
 
 
-```
+```python
 covid_group_by_state = state_covid_data.groupby('state')
 plt.figure(figsize=(15, 10))
 for state, data in covid_group_by_state:
@@ -626,7 +626,7 @@ We will be using the following packages to train and illustrate our ML model.
 5. Using `pydot` to generate tree graph.
 
 
-```
+```python
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.svm import SVR
@@ -645,7 +645,7 @@ Due to COVID-19 has a very long incubation period, the death number in each day 
 We will also drop few columns that is irrelevent with this ML model.
 
 
-```
+```python
 p5_data = raw_covid_data.copy()
 p5_data['deathIncreaseAvg'] = p5_data['positiveIncrease'] * 0.018 # Mortality Data from [3]
 
@@ -666,7 +666,7 @@ We will seperate our data to a ratio 75% - 25%.
 The random state will be set to 100 to ensure the Random Forest ML get enough random selections on our model.
 
 
-```
+```python
 p5_rf_train_features, p5_rf_test_features, p5_rf_train_labels, p5_rf_test_labels = \
   train_test_split(p5_f, p5_labels, test_size = 0.25, random_state = 100)
 
@@ -722,7 +722,7 @@ We will run a model with 1000 estimators and 100 random state.
 ##### 5.4.1.1 Training Model & Accuracy
 
 
-```
+```python
 p5_rf = RandomForestRegressor(n_estimators = 2000, random_state = 100)
 p5_rf.fit(p5_rf_train_features, p5_rf_train_labels)
 
@@ -745,7 +745,7 @@ print('Accuracy:', round(p5_rf_accuracy, 3), '%.')
 To save space, we will only display 1 tree from RF.
 
 
-```
+```python
 p5_rf_graph = pydot.graph_from_dot_data(
     export_graphviz(p5_rf.estimators_[5], feature_names = p5_f_list, 
                     rounded = True, precision = 1))
@@ -770,7 +770,7 @@ SVG(p5_rf_graph[0].create_svg())
 
 
 
-```
+```python
 p5_svr = SVR()
 p5_svr.fit(p5_svr_train_features, p5_svr_train_labels)
 
@@ -794,7 +794,7 @@ print('Accuracy:', round(p5_svr_accuracy, 3), '%.')
 Obviously, Random Forest had a much better accuracy than Support Vector Regression. Therefore, we will stick with RF for the following steps.
 
 
-```
+```python
 plt.bar(['SVR', 'RF'], [p5_svr_accuracy, p5_rf_accuracy])
 plt.show
 ```
@@ -816,7 +816,7 @@ plt.show
 Displaying the variable importance could show us which factor is the most important one in decising the deathIncrease in our model.
 
 
-```
+```python
 p5_importances = list(p5_rf.feature_importances_)
 p5_feature_importances = [(feature, round(importance, 2)) for feature, importance in zip(p5_f_list, p5_importances)]
 p5_feature_importances = sorted(p5_feature_importances, key = lambda i: i[1], reverse = True)
