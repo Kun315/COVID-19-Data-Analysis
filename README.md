@@ -43,7 +43,7 @@ Firstly, we load the data from "https://api.covidtracking.com/v1/us/daily.csv". 
 
 
 
-```
+```python
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
