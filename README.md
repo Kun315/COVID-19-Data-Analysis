@@ -592,7 +592,7 @@ plt.legend(ncol=3)
 plt.ticklabel_format(axis='y', style='plain')
 month_starts = [20200401,20200501,20200601,20200701,20200801,20200901,20201001,20201101]
 month_names = ['Apr','May','Jun', 'Jul','Aug','Sep','Oct','Nov'] 
-plt.title('Death Increase Per Day for Each State in US')
+plt.title('Confirmed Cases Increase Per Day for Each State in US')
 plt.xlabel('Time')
 plt.ylabel('Cumulative Death')
 plt.xticks(month_starts,month_names)
